@@ -1,4 +1,6 @@
-export function  TodoList ({ todos}) {
+import { TodoItem } from './TodoItem.jsx';
+
+export function  TodoList ({ todos, toggleTodo, deleteTodo }) {
 
     return (
         <ul className="list">
@@ -8,21 +10,13 @@ export function  TodoList ({ todos}) {
             todos.length === 0 && "No todos, yay!"}
             {todos.map(todo =>  {
                     return (
-                        <li key={todo.id}>
-                            <label>
-                                <input
-                                    type="checkbox"
-                                    checked={todo.completed}
-                                    //onChange={e => toggleTodo(todo.id, e.target.checked)}
-                                />
-                                {todo.title}
-                                <button
-                                    className="btn btn-danger"
-                                    // must call it as function to avoid infinite loop
-                                    //onClick={() => deleteTodo(todo.id)}
-                                >Delete</button>
-                            </label>
-                        </li>
+                        <TodoItem
+                            {...todo}
+
+                            key={todo.id}
+                            toggleTodo={toggleTodo}
+                            deleteTodo={deleteTodo}
+                        />
                     )
                 }
             )}
